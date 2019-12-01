@@ -31,9 +31,20 @@ MainWindow::MainWindow(QWidget *parent)
 void MainWindow::authorizationStatusChanged(QAbstractOAuth::Status status)
 {
 
-    ui->label->setText("Conectado com Spotify");
+    QString s;
+        if (status == QAbstractOAuth::Status::Granted){
+            s = "Conectado com Spotify";
+            ui->conexaoButton->setEnabled(false);
+        }
+        if (status == QAbstractOAuth::Status::TemporaryCredentialsReceived) {
+            s = "Conectado temporariamente";
+
+        }
+
+        ui->label->setText("Status da Conexão: " + s +  "\n");
 
 }
+
 
 MainWindow::~MainWindow()
 {
