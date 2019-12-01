@@ -23,6 +23,8 @@ public slots:
 private slots:
     void on_conexaoButton_clicked();
 
+    void on_buscaButton_clicked();
+
 private:
     Ui::MainWindow *ui;
 

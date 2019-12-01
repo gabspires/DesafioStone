@@ -6,6 +6,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QDesktopServices>
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -35,7 +36,14 @@ void MainWindow::authorizationStatusChanged(QAbstractOAuth::Status status)
         if (status == QAbstractOAuth::Status::Granted){
             s = "Conectado com Spotify";
             ui->conexaoButton->setEnabled(false);
+            ui->buscaButton->setEnabled(true);
         }
+        if (status == QAbstractOAuth::Status::NotAuthenticated){
+            s = "Conexão Perdida";
+            ui->conexaoButton->setEnabled(true);
+        }
+
+
         if (status == QAbstractOAuth::Status::TemporaryCredentialsReceived) {
             s = "Conectado temporariamente";
 
@@ -45,6 +53,19 @@ void MainWindow::authorizationStatusChanged(QAbstractOAuth::Status status)
 
 }
 
+
+void MainWindow::on_buscaButton_clicked()
+{
+
+    if(ui->buscaLine->text()== NULL || ui->buscaLine->text()=="")
+        {
+            QMessageBox::information(this, tr("Nenhuma Informação"),
+            "Digite o que deseja buscar");
+            return;
+        }
+
+
+}
 
 MainWindow::~MainWindow()
 {
@@ -58,3 +79,5 @@ void MainWindow::on_conexaoButton_clicked()
 {
     spotify.grant();
 }
+
+
