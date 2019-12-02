@@ -173,7 +173,6 @@ void MainWindow::on_tableWidget_2_itemDoubleClicked()
 
     auto item = ui->tableWidget_2->selectedItems();
 
-    //Remove por linha; Divide por dois pois o método selectedItems pega por célula. Caso tente remover um que não está lá, quebra.
     for(int i =0;i<= item.count()/2;i+=2)
     {
         ui->tableWidget_2->removeRow(item[i]->row());
@@ -312,3 +311,15 @@ void MainWindow::on_pauseButton_clicked()
     }
     musicPlayer->pause();
 }
+
+void MainWindow::on_stopButton_clicked()
+{
+    if(ui->tableWidget_2->rowCount()==0)
+    {
+      QMessageBox::information(this, tr("Dados não encontrados"),
+                               "Adicionar músicas a playlist");
+      return;
+    }
+    musicPlayer->stop();
+}
+
