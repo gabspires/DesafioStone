@@ -29,6 +29,9 @@ private slots:
 
     void on_buscaButton_clicked();
 
+    void on_tableWidget_itemDoubleClicked(QTableWidgetItem *item);
+
+
 private:
     Ui::MainWindow *ui;
 

@@ -7,14 +7,21 @@
 #include <QJsonObject>
 #include <QDesktopServices>
 #include <QMessageBox>
+#include <QFileDialog>
+#include <QFile>
+#include <QTextStream>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    ui->tableWidget->setSelectionBehavior(QTableView::SelectRows);
 
     auto replyHandler = new QOAuthHttpServerReplyHandler(8080, NULL);
+
+    musicPlayer = new QMediaPlayer();
+    playlist = new QMediaPlaylist();
 
     spotify.setReplyHandler(replyHandler);
     spotify.setAuthorizationUrl(QUrl("https://accounts.spotify.com/authorize"));
@@ -111,6 +118,7 @@ void MainWindow::on_buscaButton_clicked()
 
           reply->deleteLater();
       });
+
 }
 
 MainWindow::~MainWindow()
@@ -124,6 +132,32 @@ MainWindow::~MainWindow()
 void MainWindow::on_conexaoButton_clicked()
 {
     spotify.grant();
+}
+
+
+
+
+
+void MainWindow::on_tableWidget_itemDoubleClicked(QTableWidgetItem *item)
+{
+
+    auto itemRow = item->row();
+
+
+    int currentIndex = 0;
+    ui->tableWidget_2->insertRow ( ui->tableWidget_2->rowCount() );
+    for(int i =0; i< ui->tableWidget->columnCount();++i)
+    {
+        auto itemSelected = ui->tableWidget->item(itemRow,i);
+        ui->tableWidget_2->setItem   ( ui->tableWidget_2->rowCount()-1,
+                                   currentIndex,
+                                  new QTableWidgetItem(itemSelected->text()));
+       currentIndex++;
+       if(currentIndex>1)
+           currentIndex=0;
+
+    }
+
 }
 
 
