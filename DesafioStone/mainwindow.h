@@ -31,6 +31,9 @@ private slots:
 
     void on_tableWidget_itemDoubleClicked(QTableWidgetItem *item);
 
+    void on_tableWidget_2_itemDoubleClicked();
+
+    void on_salveButton_clicked();
 
 private:
     Ui::MainWindow *ui;

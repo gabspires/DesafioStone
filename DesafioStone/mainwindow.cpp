@@ -46,6 +46,7 @@ void MainWindow::authorizationStatusChanged(QAbstractOAuth::Status status)
             s = "Conectado com Spotify";
             ui->conexaoButton->setEnabled(false);
             ui->buscaButton->setEnabled(true);
+            ui->salveButton->setEnabled(true);
         }
         if (status == QAbstractOAuth::Status::NotAuthenticated){
             s = "Conexão Perdida";
@@ -161,3 +162,62 @@ void MainWindow::on_tableWidget_itemDoubleClicked(QTableWidgetItem *item)
 }
 
 
+void MainWindow::on_tableWidget_2_itemDoubleClicked()
+{
+    if(ui->tableWidget_2->rowCount()==0)
+    {
+      QMessageBox::information(this, tr("A playlist está vazia!"),
+      "Insira músicas na playlist para começar");
+      return;
+    }
+
+    auto item = ui->tableWidget_2->selectedItems();
+
+    //Remove por linha; Divide por dois pois o método selectedItems pega por célula. Caso tente remover um que não está lá, quebra.
+    for(int i =0;i<= item.count()/2;i+=2)
+    {
+        ui->tableWidget_2->removeRow(item[i]->row());
+    }
+}
+
+void MainWindow::on_salveButton_clicked()
+{
+    if(ui->tableWidget_2->rowCount()==0)
+    {
+        QMessageBox::information(this, tr("Dados não encontrados"),
+            "Adicionar músicas a playlist");
+        return;
+    }
+    else{
+    QString fileName = QFileDialog::getSaveFileName(this,
+         tr("Salvar Playlist"), "",
+         tr("Arquivo de Texto (*.txt);;Todos os Arquivos (*)"));
+
+    if (fileName.isEmpty())
+          return;
+      else {
+          QFile file(fileName);
+          if (!file.open(QIODevice::WriteOnly)) {
+              QMessageBox::information(this, tr("Não é possível abrir o arquivo"),
+                  file.errorString());
+              return;
+          }
+
+          try{
+
+              QTextStream out(&file);
+              for(int i =0; i< ui->tableWidget_2->rowCount();++i)
+              {
+                  auto itemURL = ui->tableWidget_2->item(i,1);
+                  auto itemName = ui->tableWidget_2->item(i,0);
+                  out << QString(itemName->text() + ";" + itemURL->text()) << "\r\n"; //windows line terminator
+              }
+          }
+          catch(QException e)
+          {
+              QMessageBox::information(this, tr("Erro ao escrever o arquivo"),
+                 " Erro encontrado ao escrever o arquivo");
+          }
+      }
+    }
+}
