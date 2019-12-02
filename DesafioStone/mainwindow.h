@@ -37,6 +37,9 @@ private slots:
 
     void on_carregarButton_clicked();
 
+
+    void on_playButton_clicked();
+
 private:
     Ui::MainWindow *ui;
 

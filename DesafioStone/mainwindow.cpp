@@ -48,6 +48,9 @@ void MainWindow::authorizationStatusChanged(QAbstractOAuth::Status status)
             ui->buscaButton->setEnabled(true);
             ui->salveButton->setEnabled(true);
             ui->carregarButton->setEnabled(true);
+            ui->playButton->setEnabled(true);
+            ui->pauseButton->setEnabled(true);
+            ui->stopButton->setEnabled(true);
         }
         if (status == QAbstractOAuth::Status::NotAuthenticated){
             s = "Conexão Perdida";
@@ -228,7 +231,7 @@ void MainWindow::on_salveButton_clicked()
 void MainWindow::on_carregarButton_clicked()
 {
     QString fileName = QFileDialog::getOpenFileName(this,
-           tr("Abrir Playlist"), "",
+           tr("Carregar Playlist"), "",
            tr("Arquivo de Texto (*.txt);;Todos os Arquivos (*)"));
     if (fileName.isEmpty())
            return;
@@ -275,4 +278,28 @@ void MainWindow::on_carregarButton_clicked()
        }
 
 
+}
+
+
+
+void MainWindow::on_playButton_clicked()
+{
+    if(musicPlayer->state()!= QMediaPlayer::PausedState)
+    {
+      if(ui->tableWidget_2->rowCount()==0)
+      {
+        QMessageBox::information(this, tr("A playlist está vazia!"),
+        "Insira músicas na playlist para começar");
+        return;
+      }
+      playlist = new QMediaPlaylist();
+      for(int i =0; i< ui->tableWidget_2->rowCount();++i)
+      {
+          auto itemSelected = ui->tableWidget_2->item(i,1);
+             playlist->addMedia(QUrl(itemSelected->text()));
+      }
+
+      musicPlayer->setPlaylist(playlist);
+    }
+      musicPlayer->play();
 }
