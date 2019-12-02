@@ -46,11 +46,7 @@ void MainWindow::authorizationStatusChanged(QAbstractOAuth::Status status)
             s = "Conectado com Spotify";
             ui->conexaoButton->setEnabled(false);
             ui->buscaButton->setEnabled(true);
-            ui->salveButton->setEnabled(true);
-            ui->carregarButton->setEnabled(true);
-            ui->playButton->setEnabled(true);
-            ui->pauseButton->setEnabled(true);
-            ui->stopButton->setEnabled(true);
+
         }
         if (status == QAbstractOAuth::Status::NotAuthenticated){
             s = "Conexão Perdida";
@@ -288,8 +284,8 @@ void MainWindow::on_playButton_clicked()
     {
       if(ui->tableWidget_2->rowCount()==0)
       {
-        QMessageBox::information(this, tr("A playlist está vazia!"),
-        "Insira músicas na playlist para começar");
+        QMessageBox::information(this, tr("Dados não encontrados"),
+                "Adicionar músicas a playlist");
         return;
       }
       playlist = new QMediaPlaylist();
@@ -302,4 +298,17 @@ void MainWindow::on_playButton_clicked()
       musicPlayer->setPlaylist(playlist);
     }
       musicPlayer->play();
+}
+
+
+
+void MainWindow::on_pauseButton_clicked()
+{
+    if(ui->tableWidget_2->rowCount()==0)
+    {
+      QMessageBox::information(this, tr("Dados não encontrados"),
+                               "Adicionar músicas a playlist");
+      return;
+    }
+    musicPlayer->pause();
 }

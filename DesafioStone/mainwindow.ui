@@ -24,14 +24,14 @@
      </rect>
     </property>
     <property name="text">
-     <string>Primeiro clique em conectar</string>
+     <string>Clique em conectar para buscar músicas:</string>
     </property>
    </widget>
    <widget class="QPushButton" name="conexaoButton">
     <property name="geometry">
      <rect>
       <x>50</x>
-      <y>30</y>
+      <y>40</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -186,7 +186,7 @@
      <item>
       <widget class="QPushButton" name="carregarButton">
        <property name="enabled">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
        <property name="text">
         <string>Carregar Playlist</string>
@@ -196,7 +196,7 @@
      <item>
       <widget class="QPushButton" name="salveButton">
        <property name="enabled">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
        <property name="text">
         <string>Salvar Playlist</string>
@@ -208,9 +208,9 @@
    <widget class="QWidget" name="horizontalLayoutWidget_3">
     <property name="geometry">
      <rect>
-      <x>380</x>
+      <x>390</x>
       <y>0</y>
-      <width>239</width>
+      <width>241</width>
       <height>80</height>
      </rect>
     </property>
@@ -218,7 +218,7 @@
      <item>
       <widget class="QPushButton" name="playButton">
        <property name="enabled">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
        <property name="text">
         <string>Play ►</string>
@@ -228,7 +228,7 @@
      <item>
       <widget class="QPushButton" name="pauseButton">
        <property name="enabled">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
        <property name="text">
         <string>Pause ||</string>
@@ -238,7 +238,7 @@
      <item>
       <widget class="QPushButton" name="stopButton">
        <property name="enabled">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
        <property name="text">
         <string>Stop ■ </string>
