@@ -47,6 +47,7 @@ void MainWindow::authorizationStatusChanged(QAbstractOAuth::Status status)
             ui->conexaoButton->setEnabled(false);
             ui->buscaButton->setEnabled(true);
             ui->salveButton->setEnabled(true);
+            ui->carregarButton->setEnabled(true);
         }
         if (status == QAbstractOAuth::Status::NotAuthenticated){
             s = "Conexão Perdida";
@@ -220,4 +221,58 @@ void MainWindow::on_salveButton_clicked()
           }
       }
     }
+}
+
+
+
+void MainWindow::on_carregarButton_clicked()
+{
+    QString fileName = QFileDialog::getOpenFileName(this,
+           tr("Abrir Playlist"), "",
+           tr("Arquivo de Texto (*.txt);;Todos os Arquivos (*)"));
+    if (fileName.isEmpty())
+           return;
+       else {
+
+           QFile file(fileName);
+
+           if (!file.open(QIODevice::ReadOnly)) {
+               QMessageBox::information(this, tr("Não foi possível abrir o arquivo"),
+                   file.errorString());
+               return;
+           }
+
+           QTextStream in(&file);
+           ui->tableWidget_2->setRowCount(0);
+           try{
+           while (!in.atEnd())
+              {
+                 QString line = in.readLine();
+                 QStringList lineList = line.split(";");
+
+                 QTableWidgetItem *nameItem = new QTableWidgetItem(lineList[0]);
+                 nameItem->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
+
+                 ui->tableWidget_2->insertRow ( ui->tableWidget_2->rowCount() );
+                 ui->tableWidget_2->setItem   ( ui->tableWidget_2->rowCount()-1,
+                                          0,
+                                          nameItem);
+
+                 QTableWidgetItem *previewItem = new QTableWidgetItem(lineList[1]   );
+                 previewItem->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
+                 ui->tableWidget_2->setItem   ( ui->tableWidget_2->rowCount()-1,
+                                          1,
+                                          previewItem);
+
+
+              }
+           }
+           catch(QException e)
+           {
+               QMessageBox::information(this, tr("Erro ao ler o arquivo"),
+                  " Erro encontrado ao ler o arquivo");
+           }
+       }
+
+
 }

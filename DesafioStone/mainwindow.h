@@ -35,6 +35,8 @@ private slots:
 
     void on_salveButton_clicked();
 
+    void on_carregarButton_clicked();
+
 private:
     Ui::MainWindow *ui;
 

@@ -173,21 +173,37 @@
      <string>Para remover músicas da playlist, clique duas vezes.</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="salveButton">
-    <property name="enabled">
-     <bool>false</bool>
-    </property>
+   <widget class="QWidget" name="horizontalLayoutWidget_2">
     <property name="geometry">
      <rect>
-      <x>380</x>
-      <y>310</y>
-      <width>91</width>
-      <height>23</height>
+      <x>350</x>
+      <y>70</y>
+      <width>170</width>
+      <height>80</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Salvar Playlist</string>
-    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QPushButton" name="carregarButton">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>Carregar Playlist</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="salveButton">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>Salvar Playlist</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
