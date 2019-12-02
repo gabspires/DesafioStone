@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>676</width>
-    <height>376</height>
+    <height>352</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -246,19 +246,6 @@
       </widget>
      </item>
     </layout>
-   </widget>
-   <widget class="QPushButton" name="removeallButton">
-    <property name="geometry">
-     <rect>
-      <x>440</x>
-      <y>310</y>
-      <width>91</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Remover tudo</string>
-    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
